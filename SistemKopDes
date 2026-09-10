@@ -1,0 +1,65 @@
+# import ini jangan dihapus/diedit yak
+import random
+
+
+def totalPenjualan(penjualan, n):
+    if n == 0:
+        return 0 # Kalau n = 0, maka total penjualan adalah 0
+    else:
+        return penjualan[n - 1][1] + totalPenjualan(penjualan, n - 1) # Kalau n > 0, maka total penjualan adalah jumlah penjualan barang ke-n ditambah total penjualan barang ke-(n-1)
+
+
+def penjualanTertinggi(penjualan, n):
+    if n == 1:
+        return penjualan[0] # Kalau n = 1, maka penjualan tertinggi adalah barang ke-1
+    
+    tertinggi_sebelumnya = penjualanTertinggi(penjualan, n - 1) # Kalau n > 1, maka penjualan tertinggi adalah barang ke-n dibandingkan dengan penjualan tertinggi dari barang ke-(n-1)
+    if penjualan[n - 1][1] > tertinggi_sebelumnya[1]:
+        return penjualan[n - 1] # Kalau barang ke-n lebih tinggi dari penjualan tertinggi sebelumnya, maka penjualan tertinggi adalah barang ke-n
+    else:
+        return tertinggi_sebelumnya # Kalau barang ke-n tidak lebih tinggi dari penjualan tertinggi sebelumnya, maka penjualan tertinggi adalah penjualan tertinggi sebelumnya
+
+
+def diAtasRataRata(penjualan, rataRata):
+    hitung = 0 # Kalau n = 0, maka jumlah barang yang penjualannya di atas rata-rata adalah 0
+    for nilai in penjualan.values(): 
+        if nilai > rataRata: 
+            hitung += 1 # Kalau nilai penjualan barang lebih besar dari rata-rata, maka jumlah barang yang penjualannya di atas rata-rata ditambah 1
+    return hitung # Kalau n > 0, maka jumlah barang yang penjualannya di atas rata-rata adalah jumlah barang yang penjualannya di atas rata-rata dari barang ke-(n-1) ditambah 1 kalau barang ke-n lebih besar dari rata-rata
+
+
+# Program Utama - Jangan dihapus/diedit yak
+angka = int(input("NIM: "))
+random.seed(angka)
+
+barang = [
+    "Beras",
+    "Minyak",
+    "Gula",
+    "Telur",
+    "Kopi",
+    "Teh"
+]
+
+penjualan = {}
+
+for namaBarang in barang:
+    penjualan[namaBarang] = random.randint(100, 500)
+
+data = list(penjualan.items())
+n = len(data)
+
+print("\n===== Data Penjualan =====")
+for namaBarang, jumlah in penjualan.items():
+    print(namaBarang, ":", jumlah)
+
+total = totalPenjualan(data, n)
+tertinggi = penjualanTertinggi(data, n)
+rataRata = total / n
+jumlahDiAtasRataRata = diAtasRataRata(penjualan, rataRata)
+
+print("\n===== Hasil Analisis =====")
+print("Total penjualan        :", total)
+print("Penjualan tertinggi    :", tertinggi[0], "(", tertinggi[1], ")")
+print("Rata-rata penjualan    :", round(rataRata, 2))
+print("Di atas rata-rata      :", jumlahDiAtasRataRata, "barang")
