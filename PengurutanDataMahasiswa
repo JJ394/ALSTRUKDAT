@@ -1,0 +1,45 @@
+import random
+from dataMahasiswa import data
+from fungsiMahasiswa import show_data, presensi_dummy, acak_data
+
+data = data.copy()
+presensi_dummy(data)
+acak_data(data)
+
+
+
+def sort_by(data: list=data, index: str="nim",rev = False):
+    maps = {
+        "nim":0,
+        "nama":1,
+        "presensi":2,
+    }
+    
+    col = maps[index] # Mengambil indeks angka kolom dari dictionary maps berdasarkan parameter index yang dimasukkan (misalnya "nim" menjadi 0, "nama" menjadi 1, "presensi" menjadi 2).
+    n = len(data)
+
+    # Bubble sort
+    for i in range(n): 
+        for j in range(0, n - i - 1): # Perulangan dalam yang membandingkan pasangan elemen bersebelahan dari indeks 0 hingga batas elemen yang belum terkumpul di posisi akhir.
+            if rev: # Mengecek apakah parameter pengurutan terbalik bernilai True (artinya urutan menurun atau descending).
+                condition = data[j][col] < data[j + 1][col] # Jika True, maka kondisi untuk menukar posisi elemen adalah jika elemen pada indeks j lebih kecil dari elemen pada indeks j + 1 (untuk urutan menurun).
+            else:
+                condition = data[j][col] > data[j + 1][col] # Jika False, maka kondisi untuk menukar posisi elemen adalah jika elemen pada indeks j lebih besar dari elemen pada indeks j + 1 (untuk urutan menaik).
+
+            if condition:
+                data[j], data[j + 1] = data[j + 1], data[j] # Menukar posisi elemen pada indeks j dengan elemen pada indeks j + 1 jika kondisi terpenuhi (untuk mengurutkan data sesuai dengan parameter index dan rev).
+    
+    # Jangan Dihapus
+    show_data(data)
+
+print("=== SORT BY PRESENSI ===")
+sort_by(data, "presensi")
+
+print("\n=== SORT BY NIM ===")
+sort_by(data, "nim", rev=True)
+
+print("\n=== SORT BY NAMA ===")
+sort_by(data, "nama")
+
+
+    
