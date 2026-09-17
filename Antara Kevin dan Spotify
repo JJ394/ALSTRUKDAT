@@ -1,0 +1,50 @@
+songs = [
+    {"title": "Golden Hour", "artist": "JVKE", "genre": "Pop", "views": 980000},
+    {"title": "Blinding Lights", "artist": "The Weeknd", "genre": "Pop", "views": 2500000},
+    {"title": "Snooze", "artist": "SZA", "genre": "R&B", "views": 1200000},
+    {"title": "N95", "artist": "Kendrick Lamar", "genre": "Hip-Hop", "views": 850000},
+    {"title": "As It Was", "artist": "Harry Styles", "genre": "Pop", "views": 2100000},
+    {"title": "Kill Bill", "artist": "SZA", "genre": "R&B", "views": 1750000}
+]
+
+def sort_by_views(songs):
+    res = songs.copy()
+    n = len(res) # Menghitung dan menyimpan jumlah total elemen (panjang list) ke dalam variabel
+
+    # selection sort
+    for i in range(n):
+        max_idx = i # Mengasumsikan sementara bahwa nilai views terbesar berada di indeks saat ini (i)
+        for j in range(i + 1, n): # Melakukan iterasi dari indeks berikutnya (i + 1) hingga akhir list untuk mencari nilai views terbesar
+            if res[j]["views"] > res[max_idx]["views"]: # Jika nilai views pada indeks j lebih besar daripada nilai views pada indeks max_idx, maka update max_idx menjadi j
+                max_idx = j # Memperbarui indeks elemen dengan jumlah views tertinggi
+        res[i], res[max_idx] = res[max_idx], res[i] # Menukar posisi lagu pada indeks i dengan lagu pada indeks max_idx yang memiliki views terbesar.
+    return res
+
+def sort_by_favourite_genre(songs, favourite_genre):
+    res = songs.copy()
+    n = len(res) # Menghitung dan menyimpan jumlah total elemen (panjang list) ke dalam variabel
+
+    # Bubble sort
+    for i in range(n):
+        for j in range(0, n - i - 1): # Perulangan dalam yang membandingkan pasangan elemen bersebelahan dari indeks 0 hingga batas elemen yang belum terkumpul di posisi akhir.
+            if res[j]["genre"] != favourite_genre and res[j + 1]["genre"] == favourite_genre: # Jika genre pada indeks j bukan genre favorit dan genre pada indeks j + 1 adalah genre favorit, maka tukar posisi kedua lagu tersebut.
+                res[j], res[j + 1] = res[j + 1], res [j] # Menukar posisi lagu pada indeks j dengan lagu pada indeks j + 1 yang memiliki genre favorit.
+    return res
+
+
+print("=== SORT BY VIEWS ===")
+
+result_views = sort_by_views(songs)
+
+for song in result_views:
+    print(song["title"], "-", song["views"], "views")
+
+
+print("\n=== SORT BY FAVOURITE GENRE ===")
+
+favourite_genre = "R&B"
+
+result_genre = sort_by_favourite_genre(songs, favourite_genre)
+
+for song in result_genre:
+    print(song["title"], "-", song["genre"])
