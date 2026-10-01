@@ -21,21 +21,21 @@ df = pd.DataFrame(raw_data)
 st.sidebar.header("Filter Data")
 
 # TODO: Gunakan widget teks untuk pencarian judul (Label: "Cari Judul Film:")
-search_title = None
-title = st.text_input("Cari Judul Film: ")
+search_title = st.sidebar.text_input("Cari Judul Film: ")
+
 
 # Ekstraksi genre dari DataFrame untuk opsi dropdown
 genre_options = ["All"] + sorted(df["genre"].dropna().unique().tolist())
 
 # TODO: Gunakan widget dropdown untuk pilihan genre. Masukkan variabel `genre_options` ke parameternya (Label: "Pilih Genre:")
-selected_genre = st.menu_button("Genre", options=genre_options)
+selected_genre = st.sidebar.menu_button("Genre", options=genre_options)
 
 
 # TODO: Gunakan widget slider. (Label: "Batas Rating Minimal:", Rentang 0.0-10.0, Default 7.0, Step 0.1)
-min_rating = st.slider("Batas Rating Minimal: ", min_value=0.0, max_value=10.0, value=7.0, step=0.1)
+min_rating = st.sidebar.slider("Batas Rating Minimal: ", min_value=0.0, max_value=10.0, value=7.0, step=0.1)
 
 # TODO: Gunakan widget sakelar toggle biner. (Label: "Tampilkan Raw Data JSON")min
-show_raw = st.button("Tampilkan Raw Data JSON")
+show_raw = st.sidebar.toggle("Tampilkan Raw Data JSON")
 
 # TODO: Tampilkan struktur raw_data JSON
 if show_raw:
